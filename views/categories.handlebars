@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+
+#target{
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+#target: hover{
+      color: #f1f1f1;
+}
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+h2{
+  text-align: center;
+}
+
+.sidebuttons{
+  padding: 10px 50px 0px 10px;
+  display: inline-block;
+  vertical-align: right;
+}
+
+ul{
+  display: table;
+  float: right;
+}
+
+li {
+  display: table-row;
+}
+
+.right{
+  float: right;
+}
+
+.right button{
+  width: 55px;
+  height: 30px;
+  color : white;
+  background-color: black;
+  margin-bottom: 10px;
+}
+
+.inv{
+  display: none;
+}
+
+table .center{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+</style>
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <ul>
+  <li><a href="#computer">Desktop</a></li>
+  <li><a href="#laptop">Laptop</a></li>
+  <li><a href="#printer">Printer</a></li>
+</ul>
+</div>
+
+<h2>Newark IT</h2>
+<p>Click on the element below to open the side navigation menu.</p>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Categories</span>
+<ul>
+    <li>
+        <span class="right"><button type="button">Account</button></span>
+    </li>
+
+    <li>
+        <span class="right"><button type="button">Cart</button></span>
+    </li>
+
+    <li>
+        <span class = "right"><button type = "button">My Orders</button></span>
+    </li>
+</ul>
+<div id = "computer" class = "tab-content">
+  <h2>Desktop</h2>
+  <table class = "center">
+    {{#computerResults}}
+    <tr>
+      <td>{{PID}}</td>
+      <td>{{CPUType}}</td>
+      <td>{{PName}}</td>
+      <td>{{PPRice}}</td>
+      <td>{{Description}}</td>
+      <td>{{PQuanitity}}</td>
+    </tr>
+    {{/computerResults}}
+  </table>
+</div>
+
+<div id = "laptop" class = "tab-content">
+ <h2>Laptop</h2>
+ <table class = "center">
+   {{#laptopResults}}
+    <tr>
+      <td>{{PID}}</td>
+      <td>{{PName}}</td>
+      <td>{{BType}}</td>
+      <td>{{Weight}}</td>
+      <td>{{PPrice}}</td>
+      <td>{{Description}}</td>
+      <td>{{PQuantity}}</td>
+    </tr>
+   {{/laptopResults}}
+ </table>
+</div>
+
+<div id = "printer" class = "tab-content">
+  <h2>Printer</h2>
+  <table class = "center">
+    {{#printerResults}}
+    <tr>
+      <td>{{PID}}</td>
+      <td>{{PName}}</td>
+      <td>{{Resolution}}</td>
+    </tr>
+    {{/printerResults}}
+  </table>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    $('.sidenav ul li:first').addClass('active');
+    $('.tab-content:not(:first)').hide();
+    $('.sidenav ul li a').click(function (event) {
+        event.preventDefault();
+        var content = $(this).attr('href');
+        $(this).parent().addClass('active');
+        $(this).parent().siblings().removeClass('active');
+        $(content).show();
+        $(content).siblings('.tab-content').hide();
+    });
+});
+</script>
+
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+</script>
+</body>
+</html>

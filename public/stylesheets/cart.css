@@ -1,0 +1,17 @@
+#cart {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.item-name {
+    float: left;
+    width: 85%;
+}
+
+.item-cost {
+    float: right;
+    width: 15%;
+    text-align: right;
+}

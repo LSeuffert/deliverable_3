@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Cart</title>
+        <link rel="stylesheet" href="/stylesheets/cart.css">
+    </head>
+    <body>
+        <ul id="cart">
+            {{#cartItems}}
+            <div>
+                <div class="item-name">{{itemName}}</div>
+                <div class="item-price">{{itemPrice}}</div>
+            </div>
+            {{/cartItems}}
+	    
+	    {{#if cartItems}}
+	    <button id="purchase">purchase</button>
+	    {{else}}
+	    <li>No items in cart</li>
+            {{/if}}
+	</ul>
+        
+        <script>
+	  handlebars.registerHelper('if', function(conditional, options) {
+            if(options.length > 0) {
+  	      return options.fn(this);
+  	    }
+  	  });
+        </script>
+    </body>
+</html>
