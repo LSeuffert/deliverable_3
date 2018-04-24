@@ -12,18 +12,35 @@ var connection = mysql.createConnection({
     multipleStatements: true
 });
 
+// PID, and Quantity
+var cartHandler = {
+    items: {},
+    add_item: function(cid, item) {
+	return;
+    },
+    remove_item: function(cid, item) {
+	return;
+    },
+    change_quantity: function(cid, pid) {
+	return;
+    },
+    get_cart: function(cid) {
+	return;
+    }
+};
+
 function restrict(req, res, next) {
-    if (req.session.user) {
+    if (req.session.user === 0 || req.session.user) {
 	next();
     } else {
 	req.session.error = 'Access denied!';
-	res.redirect('/login');
+	res.redirect('/');
     }
 }
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+    res.render('login', { title: 'Express' });
 });
 
 /* GET restricted test page */
@@ -32,7 +49,7 @@ router.get('/test', restrict, function(req, res) {
 });
 
 /* GET cart page */
-router.get('/cart', function(req, res, next) {
+router.get('/cart', restrict, function(req, res, next) {
     res.render('cart', { cartItems: [{itemName: 'cart item', itemPrice: '$1.23'}, {itemName: 'another item', itemPrice: '$1.23'}, {itemName: 'last item', itemPrice: '$1.23'}] });
 });
 
@@ -55,7 +72,6 @@ router.get("/categories", function(request,response){
 		throw error;
 	    }
 	    else{
-		console.log("SucSAAAAAAAXX");
 		response.render('categories', {page_title: "Categories", computerResults: results[0], laptopResults: results[1], printerResults: results[2]});
 	  }
 	});
@@ -82,7 +98,6 @@ router.post('/registration', function(req, res, next) {
 		    throw error;
 		}
 		else{
-		    console.log("SucSAAAAAAAXX");
 		    res.json({ success: true });
 		}
 	    });
@@ -90,6 +105,26 @@ router.post('/registration', function(req, res, next) {
 	    console.log('connected as id ' + connection.threadId);
 	// });
     }
+});
+
+/* POST login */
+router.post('/login', function(req, res, next) {
+    connection.query('SELECT CID FROM CUSTOMER WHERE EMail = ' + connection.escape(req.body.EMail) + 'AND Password = ' + connection.escape(req.body.Password), function(error, results, fields) {
+	if(error){
+	    res.json({ success: false });
+	    throw error;
+	}
+	else{
+	    req.session.user = results[0].CID;
+	    res.json({ success: true });
+	}
+    });
+});
+
+
+/* GET account page */
+router.get('/account', restrict, function(req, res, next) {
+    res.render('account');
 });
 
 module.exports = router;

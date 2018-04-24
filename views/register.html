@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="register.css">
+</head>
+
+<body>
+	<img src="logo.png" alt="Newark IT Logo"> 
+    <h1>Register</h1>
+    <form id="registration_form">
+        <div class = "flep">
+            <label for="first_name">First Name:</label>
+            <input name="first_name" id="first_name" type="text" placeholder="John" required>
+            <br>
+            <label for="last_name">Last Name:</label>
+            <input name="last_name" id="last_name" type="text" placeholder="Doe" required>
+            <br>
+            <label for="email">Email:</label>
+            <input name="email" id="email" type="email" placeholder="johndoe@gmail.com" required>
+            <br>
+            <label for="password">Password:</label>
+            <input name="password" id="password" type="password" pattern=".{5,10}" required>
+        </div>
+        <div>
+            <input type="submit" value="Sign In">
+        </div>
+    </form>
+    <script type="text/javascript" src="register.js"></script>
+</body>
+
+</html>

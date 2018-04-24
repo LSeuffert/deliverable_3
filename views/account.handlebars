@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <title>My Account</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/account.css">
+</head>
+
+<body>
+    <img src="/images/logo.png" alt="Newark IT Logo"> 
+    <h1>Account Information</h1>
+    <div class="row">
+        <div class="column">
+            <form id="address_information_form" class="form">
+                <h3>Address Information</h3>
+                <div class = "address">
+                    <label for="street_name">Street Name:</label>
+                    <input name="street_name" id="street_name" type="text" placeholder="100 Software Street" required>
+                    <br>
+                    <label for="street_number">Street Number:</label>
+                    <input name="street_number" id="street_number" type="text" placeholder="10" required>
+                    <br>
+                    <label for="city">City:</label>
+                    <input name="city" id="city" type="text" placeholder="Newark" required>
+                    <br>
+                    <label for="zipcode">Zipcode:</label>
+                    <input name="zipcode" id="v" type="text" placeholder="07102" required>
+                    <br>
+                    <label for="country">Country:</label>
+                    <input name="country" id="country" type="text" placeholder="United States of America" required>
+                </div>
+                <div>
+                    <input type="submit" value="Save">
+                </div>
+            </form>
+        </div>
+        <div class="column">
+            <form id="credit_card_information_form" class="form">
+                <h3>Credit Card Information</h3>
+                <div class = "cc">
+                    <label for="cc_type">Credit Card Type:</label>
+                    <input name="cc_type" id="cc_type" type="text" placeholder="Visa" required>
+                    <br>
+                    <label for="owner_name">Name On Card:</label>
+                    <input name="owner_name" id="owner_name" type="text" placeholder="John Doe" required>
+                    <br>
+                    <label for="cc_number">Credit Card Number:</label>
+                    <input name="cc_number" id="cc_number" type="text" placeholder="1234567890123456" required>
+                    <br>
+                    <label for="security_code">Security Code:</label>
+                    <input name="security_code" id="security_code" type="text" placeholder="123" required>
+                    <br>
+                    <label for="expiration_date">Expiration Date:</label>
+                    <input name="expiration_date" id="expiration_date" type="date" placeholder="mm/dd/yyyy" required>
+                    <br>
+                </div>
+                <div>
+                    <input type="submit" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+    <form id="status_form" class="form">
+        <h3>Status</h3>
+        <div class = "status">              
+            <label for="silver">Silver</label>
+            <input name="status" id="silver" type="radio" value="silver">
+            <label for="gold">Gold</label>
+            <input name="status" id="gold" type="radio" value="gold">
+            <label for="platinum">Platinum</label>
+            <input name="status" id="platinum" type="radio" value="platinum">   
+        </div> 
+        <div>
+            <input type="submit" value="Save">
+        </div>
+    </form>
+    <script type="text/javascript" src="/javascripts/account.js"></script>
+</body>
+
+</html>
