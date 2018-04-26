@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+      <title>Orders</title>
+          <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+    </head>
+    <body>
+      	<ul id="nav">
+	  <li><a href="main.html">Home</a></li>
+	  <li><a href="account.html">My Account</a></li>
+	  <li class="category"><a href="#">Desktop Computers</a></li>
+	  <li class="category"><a href="#">Laptops</a></li>
+	  <li class="category"><a href="#">Printers</a></li>
+	  <li class="category"><a href="#">Accessories</a></li>
+	</ul>
+
+	<table>
+	    {{#orders}}
+	    <tr>
+		<td><a href="/order/{{CartID}}">{{CartID}}</a></td>
+		<td><a href="/order/{{CartID}}">{{SAName}}</a></td>
+		<td><a href="/order/{{CartID}}">{{TStatus}}</a></td>
+		<td><a href="/order/{{CartID}}">{{TDate}}</a></td>
+	    </tr>
+	    {{/orders}}
+	</table>
+    </body>
+</html>

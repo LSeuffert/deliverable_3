@@ -114,9 +114,19 @@
 
 
     </style>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
   </head>
   <body>
+    	<ul id="nav">
+	  <li><a href="main.html">Home</a></li>
+	  <li><a href="account.html">My Account</a></li>
+	  <li class="category"><a href="#">Desktop Computers</a></li>
+	  <li class="category"><a href="#">Laptops</a></li>
+	  <li class="category"><a href="#">Printers</a></li>
+	  <li class="category"><a href="#">Accessories</a></li>
+	</ul>
 
+    
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <ul>

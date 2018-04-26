@@ -17,12 +17,12 @@ var cartHandler = {
     user: {},
     add_item: function(cid, product) {
 	if(parseInt(product.Quantity) < 1) return;
-	
+
 	if (!this.user.hasOwnProperty(cid)) {
 	    this.user[cid] = {};
 
 	}
-	
+
 	if (!this.user[cid].hasOwnProperty(product.PID)) {
 	    this.user[cid][product.PID] = parseInt(product.Quantity);
 	} else {
@@ -52,7 +52,7 @@ var cartHandler = {
 	    product_list.push({ PID: element, Quantity: this.user[cid][element] });
 	});
 	console.log('looped through keys');
-	
+
 	return product_list;
     }
 };
@@ -129,6 +129,16 @@ router.get("/categories", restrict, function(request,response){
 	}
     });
     // });
+});
+
+router.get("/myorder", restrict, function(request, response){
+  var post = request.body;
+  connection.query('SELECT TDATE, TStatus, CCNumber, STREET, CITY, COUNTRY, PNAME, PPrice, Quantity FROM (CART NATURAL JOIN APPEARS_IN NATURAL JOIN PRODUCT JOIN SHIPPING_ADDRESS ON CART.CID = SHIPPING_ADDRESS.CID) ORDER BY TDATE DESC;');
+  if(error)
+    throw error;
+  else{
+    response.render('myorder',{orderResults: "My Orders"});
+  }
 });
 
 /* POST registration page */
@@ -217,7 +227,7 @@ router.get('/confirmcreditcard/:saname', restrict, function(req, res, next) {
 /* MISSING REDIRECT ON FAILURE */
 router.post('/cart/:action', function(req, res, next) {
     if (req.session.user === undefined) return;
-    
+
     if (req.params.action === 'add') {
     	cartHandler.add_item(req.session.user, req.body);
 	res.send({success: true});
@@ -240,7 +250,7 @@ router.post('/purchase', function(req, res, next) {
 
 	var cart_list = cartHandler.get_cart(req.session.user);
 	console.log(cart_list);
-	
+
 	// subtract quantity from PQuantity
 	var subtract_query = 'UPDATE PRODUCT SET PQuantity = PQuantity - ? WHERE PID = ?; ';
 	var price_query = 'SELECT PPRice FROM PRODUCT WHERE PID = ?; ';
@@ -281,7 +291,7 @@ router.post('/purchase', function(req, res, next) {
 			    throw error;
 			});
 		    }
-		    
+
 		    if (results.length > 1) results = results.map((element) => { return element[0] });
 
 		    // add to APPEARS_IN
@@ -290,7 +300,7 @@ router.post('/purchase', function(req, res, next) {
 		    var final_appears_query = '';
 
 		    console.log(results[0]);
-		    
+
 		    for(let i = 0; i < results.length; i++) {
 			final_appears_query += appears_in_query;
 			query_params.push(results[i].PID);
@@ -314,14 +324,73 @@ router.post('/purchase', function(req, res, next) {
 				});
 			    }
 			    console.log('success');
+			    res.send({ success: true, url: 'http://picklepeople.mynetgear.com:81/order/' + cart_id });
 			    delete cartHandler.user[req.session.user];
 			});
 		    });
-		});		
+		});
 	    });
 	});
     });
 });
 
+
+router.get('/order', restrict, (req, res, next) => {
+    connection.query('SELECT CartID, SAName, TStatus, TDate FROM CART WHERE CID = ?', [req.session.user], (error, results, fields) => {
+	if (error) throw error;
+	res.render('orderlist', { orders: results });
+    });
+});
+
+/* GET order detail page */
+router.get('/order/:cartID', restrict, (req, res, next) => {
+    connection.query('SELECT TDate, TStatus, CCNumber, SAName FROM CART WHERE CartID = ?; SELECT PName, Quantity, PriceSold FROM APPEARS_IN NATURAL JOIN PRODUCT WHERE CartID = ?; ', [req.params.cartID, req.params.cartID], function(error, results, fields) {
+	if (error) throw error;
+	results[1] = results[1].map((row) => {
+	    row.TDate = results[0][0].TDate;
+	    row.TStatus = results[0][0].TStatus;
+	    row.CCNumber = results[0][0].CCNumber;
+	    row.SAName = results[0][0].SAName;
+	    return row;
+	});
+
+	var order = results[1];
+
+	connection.query('SELECT Street, SNumber, City, Country FROM SHIPPING_ADDRESS WHERE SAName = ? AND CID = ?', [order[0].SAName, req.session.user], function(error, results, fields) {
+	    console.log(results);
+	    order = order.map((row) => {
+		row.Street = results[0].Street + ' ' + results[0].SNumber;
+		row.City = results[0].City;
+		row.Country = results[0].Country;
+		return row;
+	    });
+	    res.render('myorder', { orderResults: order });
+	});
+    });
+});
+
+
+/* GET analytics page */
+router.get('/analytics', (req, res, next) => {
+    res.render('analytics');
+});
+
+/* POST to analytics page */
+router.post('/analytics', (req, res, next) => {
+console.log(req.body);
+    var query1 = 'SELECT PID, SUM(Quantity) as total FROM APPEARS_IN WHERE CartID IN (SELECT CartID FROM CART WHERE TDate >= ? and TDate <= ?) GROUP BY PID ORDER BY SUM(Quantity) DESC LIMIT 1; ';
+    var query2 = 'SELECT PID, COUNT(*) as total FROM (SELECT CID, PID FROM CART JOIN APPEARS_IN ON CART.CartID=APPEARS_IN.CartID WHERE TDate >= ? and TDate <= ? GROUP BY CID, PID) as T1 GROUP BY PID ORDER BY COUNT(*) DESC LIMIT 1; ';
+    var query3 = 'SELECT CID, SUM(PriceSold*Quantity) as total FROM CART JOIN APPEARS_IN ON CART.CartID=APPEARS_IN.CartID WHERE TDate >= ? and TDate <= ? GROUP BY CID ORDER BY SUM(PriceSold*Quantity) DESC LIMIT 10; ';
+    var query4 = 'SELECT Zip, COUNT(CartID) AS num_shipments FROM (SELECT * FROM CART WHERE TStatus = "shipped" AND (TDate >= ? AND TDate <= ?)) AS T1 JOIN SHIPPING_ADDRESS AS SA ON SA.CID = T1.CID AND SA.SAName = T1.SAName GROUP BY Zip ORDER BY num_shipments DESC LIMIT 5; ';
+    var query5 = 'SELECT PType, AVG(PriceSold) AS average_selling_price FROM (SELECT * FROM CART WHERE TDate >= ? AND TDate <= ?) AS C JOIN APPEARS_IN AS A ON C.CartID = A.CartID JOIN PRODUCT AS P ON P.PID = A.PID GROUP BY PType';
+    connection.query(query1 + query2 + query3 + query4 + query5, [req.body.date_begin, req.body.date_end, req.body.date_begin, req.body.date_end, req.body.date_begin, req.body.date_end, req.body.date_begin, req.body.date_end, req.body.date_begin, req.body.date_end], function(error, results, fields) {
+	res.send({ query1: results[0],
+		   query2: results[1],
+		   query3: results[2],
+		   query4: results[3],
+		   query5: results[4] });
+	
+    });
+});
 
 module.exports = router;

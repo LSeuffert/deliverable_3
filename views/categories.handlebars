@@ -111,10 +111,27 @@
       margin-bottom: 10px;
       }
 
+      .myorder{
+         width: 65px;
+         height: 30px;
+         color: white;
+         background-color: black;
+
+      }
+
 
     </style>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
   </head>
   <body>
+	<ul id="nav">
+	  <li><a href="main.html">Home</a></li>
+	  <li><a href="account.html">My Account</a></li>
+	  <li class="category"><a href="#">Desktop Computers</a></li>
+	  <li class="category"><a href="#">Laptops</a></li>
+	  <li class="category"><a href="#">Printers</a></li>
+	  <li class="category"><a href="#">Accessories</a></li>
+	</ul>
 
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -139,7 +156,9 @@
 	</li>
 
 	<li>
-          <span class = "right"><button type = "button">My Orders</button></span>
+    <form action="/order">
+      <input class="myorder" type="submit" value="My Orders" />
+    </form>
 	</li>
       </ul>
     </div>
@@ -158,7 +177,7 @@
           <th "padding 0 25px 0 25px">Quantity</th>
         </tr>
         <tr>
-          <td "padding 0 25px 0 25px">{{PID}}</td>
+          <td "padding 0 35px 0 35px">{{PID}}</td>
           <td "padding 0 35px 0 35px">{{CPUType}}</td>
           <td "padding 0 25px 0 25px">{{PName}}</td>
           <td "padding 0 25px 0 25px">{{PPRice}}</td>
@@ -182,9 +201,9 @@
      <h2>Laptop</h2>
 	  <table class = "center">
 	  <tr>
-         <th style="padding: 0 25px 0 25px">ID</th>
+         <th style="padding: 0 25px 0 0">ID</th>
          <th style="padding: 0 25px 0 25px">Product</th>
-         <th style="padding: 0 35px 0 35px">B Type</th>
+         <th style="padding: 0 35px 0 35px">Battery</th>
          <th style="padding: 0 25px 0 25px">Weight</th>
          <th style="padding: 0 25px 0 25px">Price</th>
          <th style="padding: 0 35px 0 35px">Description</th>
@@ -220,11 +239,13 @@
           <th "padding 0 15px 0 15px">ID</th>
           <th "padding 0 15px 0 15px">Product</th>
           <th "padding 0 15px 0 15px">Weight</th>
+          <th "padding 0 15px 0 15px">Price</th>
         </tr>
         <tr>
-          <td class="product_id" "padding 0 15px 0 15px">{{PID}}</td>
+          <td class="product_id" "padding 0 15px 0 35px">{{PID}}</td>
           <td "padding 0 15px 0 15px">{{PName}}</td>
           <td "padding 0 15px 0 15px">{{Weight}}</td>
+          <td "padding 0 15px 0 15px">{{PPrice}}</td>
           <td>
           <form class = "form1">
               <label for = "quantity">Quantity: </label>
@@ -278,7 +299,7 @@
     	      	  	      "PID":pid,
     	      	  	      "Quantity":quantity
     	      	  	  };
-    	      	      }    		      
+    	      	      }
 	      	  }
 	      	  var data = JSON.stringify(json_object);
     	      	  var xhr = new XMLHttpRequest();
@@ -296,7 +317,7 @@
     	      	  xhr.send(data);
     	      }
     	  }
-	 
+
     			      </script>
   </body>
 </html>

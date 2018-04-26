@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+	<title>Orders</title>
+    </head>
+    <body>
+	<table>
+	    {{#orders}}
+	    <a href="/order/{{CartID}}">
+		<!-- <tr>
+		     <td>{{CartID}}</td>
+		     <td>{{SAName}}</td>
+		     <td>{{TStatus}</td>
+		     <td>{{TDate}}</td>
+		     </tr> -->
+	    </a>
+	    {{/orders}}
+	</table>
+    </body>
+</html>

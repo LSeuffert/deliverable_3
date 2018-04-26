@@ -4,8 +4,19 @@
     <head>
         <title>Cart</title>
         <link rel="stylesheet" href="/stylesheets/cart.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
     </head>
     <body>
+	<ul id="nav">
+	  <li><a href="main.html">Home</a></li>
+	  <li><a href="account.html">My Account</a></li>
+	  <li class="category"><a href="#">Desktop Computers</a></li>
+	  <li class="category"><a href="#">Laptops</a></li>
+	  <li class="category"><a href="#">Printers</a></li>
+	  <li class="category"><a href="#">Accessories</a></li>
+	</ul>
+
+      
         <ul id="cart">
             {{#cartItems}}
             <div>

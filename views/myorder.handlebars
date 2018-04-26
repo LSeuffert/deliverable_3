@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+      font-family: "Lato", sans-serif;
+      }
+
+      h2{
+      text-align: center;
+      }
+
+      h1{
+      text-align : center;
+      }
+
+      ul{
+      display: table;
+      float: right;
+      }
+
+      li {
+      display: table-row;
+      }
+
+      .center{
+      margin-left: auto;
+      margin-right: auto;
+      }
+
+      .home_button{
+      width: 65px;
+      heigh: 35px;
+      background-color: black;
+      color: white;
+      }
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+  </head>
+</body>
+<ul id="nav">
+  <li><a href="main.html">Home</a></li>
+  <li><a href="account.html">My Account</a></li>
+  <li class="category"><a href="#">Desktop Computers</a></li>
+  <li class="category"><a href="#">Laptops</a></li>
+  <li class="category"><a href="#">Printers</a></li>
+  <li class="category"><a href="#">Accessories</a></li>
+</ul>
+
+
+<div id = "home">
+  <form action="categories.html">
+    <input class="home_button" type="submit" value="Home" />
+  </form>
+</div>
+<h1>My Orders</h1>
+<div id="myorder" class="tab-content">
+  <table class = "center">
+    <tr>
+      <th "padding 0 25px 0 25px">Date</th>
+      <th "padding 0 35px 0 35px">Status</th>
+      <th "padding 0 25px 0 25px">Card Number</th>
+      <th "padding 0 25px 0 25px">Street</th>
+      <th "padding 0 35px 0 35px">City</th>
+      <th "padding 0 25px 0 25px">Country</th>
+      <th "padding 0 25px 0 25px">Product Name</th>
+      <th "padding 0 25px 0 25px">Price</th>
+      <th "padding 0 25px 0 25px">Quantity</th>
+    </tr>
+
+    {{#orderResults}}
+    <tr>
+      <td "padding 0 25px 0 25px">{{TDate}}</td>
+      <td "padding 0 35px 0 35px">{{TStatus}}</td>
+      <td "padding 0 25px 0 25px">{{CCNumber}}</td>
+      <td "padding 0 25px 0 25px">{{Street}}</td>
+      <td "padding 0 35px 0 35px">{{City}}</td>
+      <td "padding 0 35px 0 35px">{{Country}}</td>
+      <td "padding 0 25px 0 25px">{{PName}}</td>
+      <td "padding 0 25px 0 25px">{{PriceSold}}</td>
+      <td "padding 0 25px 0 25px">{{Quantity}}</td>
+    </tr>
+
+
+    {{/orderResults}}
+  </table>
+</div>
+</body>
+</html>

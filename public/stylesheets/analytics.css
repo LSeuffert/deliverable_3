@@ -2,6 +2,18 @@ body {
     text-align: center;
 }
 
+#date_form {
+	text-align: center;
+}
+
+#beginning_year {
+	margin-right: 50px;
+}
+
+#button {
+	margin: 20px;
+}
+
 button {
     background: #000000;
     color: #000000;
