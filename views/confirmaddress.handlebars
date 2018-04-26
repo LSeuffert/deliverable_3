@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <title>Confirm Address</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/confirmaddress.css">
+</head>
+
+<body>
+    <img src="/images/logo.png" alt="Newark IT Logo">
+
+    <h1>Confirm Your Shipping / Billing Address</h1>
+
+    <div class="row">
+        <div class="column">
+            <h3>Current Address</h3>
+            <form id="current">
+	      {{#addresses}}
+	      <div>
+                <p><input name="{{SAName}}" type="radio"><strong>{{SAName}}</strong><br>{{RecipientName}}<br>{{Street}} {{SNumber}}<br>{{City}}, {{Zip}}<br>{{Country}}</p></div>
+	      </div>
+                <div>
+                    <input type="submit" value="Use this address">
+                </div>
+		{{/addresses}}
+            </form>
+        </div>
+        <div class="column">
+          <form id="address_information_form" class="form">
+                <h3>Update Address Information</h3>
+                <div class="address">
+                    <label for="street_name">Street Name:</label>
+                    <input name="street_name" id="street_name" type="text" placeholder="100 Software Street" required>
+                    <br>
+                    <label for="street_number">Street Number:</label>
+                    <input name="street_number" id="street_number" type="text" placeholder="10" required>
+                    <br>
+                    <label for="city">City:</label>
+                    <input name="city" id="city" type="text" placeholder="Newark" required>
+                    <br>
+                    <label for="zipcode">Zipcode:</label>
+                    <input name="zipcode" id="v" type="text" placeholder="07102" required>
+                    <br>
+                    <label for="country">Country:</label>
+                    <input name="country" id="country" type="text" placeholder="United States of America" required>
+                </div>
+                <div>
+                    <input type="submit" value="Update address">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="continue">
+        <input type="submit" value="Continue">
+    </div>
+
+    <script type="text/javascript" src="/javascripts/confirmaddress.js"></script>
+</body>
+
+</html>

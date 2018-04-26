@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -131,11 +132,11 @@
       <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Categories</span>
       <ul>
 	<li>
-          <span class="right"><a href="/account"><button type="button">Account</button></a></span>
+          <span class="right"><button type="button">Account</button></span>
 	</li>
 
 	<li>
-          <span class="right"><a href="/cart"><button type="button">Cart</button></a></span>
+          <span class="right"><button type="button">Cart</button></span>
 	</li>
 
 	<li>
@@ -165,7 +166,7 @@
           <td "padding 0 35px 0 35px">{{Description}}</td>
           <td "padding 0 35px 0 35px">{{PQuanitity}}</td>
           <td>
-          <form class = "form1">
+          <form class = "form">
               <label for = "quantity">Quantity: </label>
               <input name="{{PID}}" class = "num" type = "number" required>
               <input type = "submit" value = "Add to Cart">
@@ -180,18 +181,17 @@
 
     <div id = "laptop" class = "tab-content">
      <h2>Laptop</h2>
-	  <table class = "center">
-	  <tr>
-         <th style="padding: 0 25px 0 25px">ID</th>
-         <th style="padding: 0 25px 0 25px">Product</th>
-         <th style="padding: 0 35px 0 35px">B Type</th>
-         <th style="padding: 0 25px 0 25px">Weight</th>
-         <th style="padding: 0 25px 0 25px">Price</th>
-         <th style="padding: 0 35px 0 35px">Description</th>
-         <th style="padding: 0 25px 0 25px">Quantity</th>
-       </tr>
-
+     <table class = "center">
        {{#laptopResults}}
+       <tr>
+         <th "padding 0 25px 0 25px">ID</th>
+         <th "padding 0 25px 0 25px">Product</th>
+         <th "padding 0 35px 0 35px">B Type</th>
+         <th "padding 0 25px 0 25px">Weight</th>
+         <th "padding 0 25px 0 25px">Price</th>
+         <th "padding 0 35px 0 35px">Description</th>
+         <th "padding 0 25px 0 25px">Quantity</th>
+       </tr>
         <tr>
           <td id = "PID" "padding 0 25px 0 25px">{{PID}}</td>
           <td "padding 0 25px 0 25px">{{PName}}</td>
@@ -201,7 +201,7 @@
           <td "padding 0 25px 0 25px">{{Description}}</td>
           <td id = "QUANTITY" "padding 0 35px 0 35px">{{PQuantity}}</td>
           <td>
-            <form class = "form1">
+            <form id = "form" class = "form">
                 <label for = "quantity">Quantity: </label>
                 <input name = "{{PID}}" type = "number" required>
                 <input type = "submit" value = "Add to Cart">
@@ -226,7 +226,7 @@
           <td "padding 0 15px 0 15px">{{PName}}</td>
           <td "padding 0 15px 0 15px">{{Weight}}</td>
           <td>
-          <form class = "form1">
+          <form class = "form">
               <label for = "quantity">Quantity: </label>
               <input name="{{PID}}" class = "num" type = "number" required>
               <input type = "submit" value = "Add to Cart">
@@ -237,7 +237,7 @@
       </table>
     </div>
 
-    <script src="javascripts/jquery-3.3.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script>
       $(document).ready(function () {
@@ -265,38 +265,38 @@
     </script>
 
     <script>
-    	  var elements = document.getElementsByClassName('form1');
-    	  for(i = 0; i < elements.length; i++){
-	      var json_object;
-	      elements[i].onsubmit = function(e) {
-		  e.preventDefault();
-	      	  for(j = 0; j < this.children.length; ++j) {
-    	      	      if(this.children[j].className === "num"){
-    	      	  	  var pid = this.children[j].getAttribute("name");
-    	      	  	  var quantity = this.children[j].value;
-	      	  	  json_object = {
-    	      	  	      "PID":pid,
-    	      	  	      "Quantity":quantity
-    	      	  	  };
-    	      	      }    		      
-	      	  }
-	      	  var data = JSON.stringify(json_object);
-    	      	  var xhr = new XMLHttpRequest();
-    	      	  xhr.withCredentials = true;
-    	      	  xhr.addEventListener("readystatechange", function () {
-    	      	      if (this.readyState === 4) {
-    	      	  	  console.log(this.responseText);
-    	      	      }
-    	      	  });
+    	       var elements = getElementsByClassName('form');
+    	       for(i = 0; i < elements.length; i++){
 
-    	      	  xhr.open("POST", "http://picklepeople.mynetgear.com:81/cart/add");
-    	      	  xhr.setRequestHeader("Content-Type", "application/json");
-    	      	  xhr.setRequestHeader("Cache-Control", "no-cache");
+    		   var form_submit = elements.getAttribute("class");
+    		   if(elements.childNodes[i].className = "num"){
+    		       var pid = elements.childNodes[i].getAttribute("name");
+    		       var quantity = elements.childNodes[i].value;
+    		   }
+    		   form_submit.onsubmit = function(e){
+    		       e.preventDefault();
+    		       // var json_object = {
+    		       // 	   "PID":pid,
+    		       // 	   "Quantity":quantity
+    		       // };
 
-    	      	  xhr.send(data);
-    	      }
-    	  }
-	 
+    		       // var data = JSON.stringify(json_object);
+    		       // var xhr = new XMLHttpRequest();
+    		       // xhr.withCredentials = true;
+
+    		       // xhr.addEventListener("readystatechange", function () {
+    		       // 	   if (this.readyState === 4) {
+    		       // 	       console.log(this.responseText);
+    		       // 	   }
+    		       // });
+
+    		       // xhr.open("POST", "http://picklepeople.mynetgear.com:81/cart/add");
+    		       // xhr.setRequestHeader("Content-Type", "application/json");
+    		       // xhr.setRequestHeader("Cache-Control", "no-cache");
+
+    		       // xhr.send(data);
+    		   }
+    	       }
     			      </script>
   </body>
 </html>

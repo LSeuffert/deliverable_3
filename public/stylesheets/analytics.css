@@ -1,0 +1,25 @@
+body {
+    text-align: center;
+}
+
+button {
+    background: #000000;
+    color: #000000;
+    font-size: 25px;
+    margin-bottom: 15px 0;
+}
+
+#home {
+    margin-top: 20px;
+    font-size: 50px;
+}
+
+button {
+    background: #8FC403;
+    border: none;
+    border-radius: 50px;
+    display: block;
+    margin: auto;
+    margin-bottom: 30px;
+    outline: none;
+}

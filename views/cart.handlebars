@@ -10,23 +10,16 @@
             {{#cartItems}}
             <div>
                 <div class="item-name">{{itemName}}</div>
-                <div class="item-price">{{itemPrice}}</div>
+                <div class="item-price">Price: ${{itemPrice}} <span>| Qty: {{Quantity}}</span> <button name="{{PID}}" class="remove-item">remove</button></div>
             </div>
             {{/cartItems}}
 	    
 	    {{#if cartItems}}
-	    <button id="purchase">purchase</button>
+	    <a href="/confirmcreditcard"><button id="purchase">purchase</button></a>
 	    {{else}}
 	    <li>No items in cart</li>
             {{/if}}
 	</ul>
-        
-        <script>
-	  handlebars.registerHelper('if', function(conditional, options) {
-            if(options.length > 0) {
-  	      return options.fn(this);
-  	    }
-  	  });
-        </script>
+	<script src="/javascripts/cart.js"></script>
     </body>
 </html>

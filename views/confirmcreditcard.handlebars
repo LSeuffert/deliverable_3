@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <title>Confirm Credit Card</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/confirmcreditcard.css">
+</head>
+
+<body>
+    <img src="/images/logo.png" alt="Newark IT Logo">
+
+    <h1>Confirm Your Credit Card Information</h1>
+
+    <div class="row">
+        <div class="column">
+            <h3>Current Credit Card Information</h3>
+            <form class="current" id="current_address">
+	      {{#cards}}
+                <p><input name="{{CCID}}" type="radio">{{OwnerName}}<br>Card Type: {{CCType}}<br>Last 4 Digits: {{CCNumber}}</p>
+		{{/cards}}
+            </form>
+        </div>
+        <div class="column">
+            <form id="credit_card_information_form" class="form">
+                <h3>Update Credit Card Information</h3>
+                <div class="cc">
+                    <label for="cc_type">Credit Card Type:</label>
+                    <input name="cc_type" id="cc_type" type="text" placeholder="Visa" required>
+                    <br>
+                    <label for="owner_name">Name On Card:</label>
+                    <input name="owner_name" id="owner_name" type="text" placeholder="John Doe" required>
+                    <br>
+                    <label for="cc_number">Credit Card Number:</label>
+                    <input name="cc_number" id="cc_number" type="text" placeholder="1234567890123456" required>
+                    <br>
+                    <label for="security_code">Security Code:</label>
+                    <input name="security_code" id="security_code" type="text" placeholder="123" required>
+                    <br>
+                    <label for="expiration_date">Expiration Date:</label>
+                    <input name="expiration_date" id="expiration_date" type="date" placeholder="mm/dd/yyyy" required>
+                    <br>
+                </div>
+                <div>
+                    <input type="submit" value="Update credit card">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="continue">
+      <button>Continue</button>
+    </div>
+
+    <script type="text/javascript" src="/javascripts/confirmcreditcard.js"></script>
+</body>
+
+</html>

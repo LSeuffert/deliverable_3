@@ -7,11 +7,11 @@
 
 .item-name {
     float: left;
-    width: 85%;
+    width: 75%;
 }
 
 .item-cost {
     float: right;
-    width: 15%;
+    width: 25%;
     text-align: right;
 }
